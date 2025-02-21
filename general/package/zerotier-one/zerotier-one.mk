@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-ZEROTIER_ONE_VERSION = 1.14.0
+ZEROTIER_ONE_VERSION = 1.14.1
 ZEROTIER_ONE_SITE = $(call github,zerotier,ZeroTierOne,$(ZEROTIER_ONE_VERSION))
 
 ZEROTIER_ONE_LICENSE = BUSL-1.1
@@ -26,10 +26,11 @@ endef
 define ZEROTIER_ONE_INSTALL_TARGET_CMDS
 	$(MAKE) -C $(@D) DESTDIR=$(TARGET_DIR) install
 
-	if grep -q "BR2_PACKAGE_WEBUI=y" $(BR2_CONFIG); then \
-		$(INSTALL) -m 755 -d $(TARGET_DIR)/etc/init.d ; \
-		cp $(ZEROTIER_ONE_PKGDIR)/files/S90zerotier $(TARGET_DIR)/etc/init.d ; \
-	fi
+	$(INSTALL) -m 755 -d $(TARGET_DIR)/etc
+	cp $(ZEROTIER_ONE_PKGDIR)/files/zerotier.conf $(TARGET_DIR)/etc/zerotier.conf
+
+	$(INSTALL) -m 755 -d $(TARGET_DIR)/etc/init.d
+	cp $(ZEROTIER_ONE_PKGDIR)/files/S90zerotier $(TARGET_DIR)/etc/init.d
 endef
 
 $(eval $(generic-package))
