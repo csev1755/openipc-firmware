@@ -4,3 +4,41 @@ config BR2_PACKAGE_MOTORS
 	  Various code to manage motor hardware
 
 	  https://openipc.org
+
+config BR2_PACKAGE_I2C_MOTOR
+	bool "i2c motor"
+	depends on BR2_PACKAGE_MOTORS
+	default y if !BR2_OPENIPC_SOC_VENDOR="xiongmai" && !BR2_OPENIPC_SOC_VENDOR="ingenic"
+	help
+	  Select this option for i2c motor control.
+
+config BR2_PACKAGE_XM_UART_MOTOR
+	bool "XM UART motor"
+	depends on BR2_PACKAGE_MOTORS
+	default y if BR2_OPENIPC_SOC_VENDOR="xiongmai"
+	help
+	  Select this option for XM UART motor
+	  control.
+
+config BR2_PACKAGE_XM_KMOTOR
+	bool "XM Kmotor"
+	depends on BR2_PACKAGE_MOTORS
+	default y if BR2_OPENIPC_SOC_VENDOR="xiongmai"
+	help
+	  Select this option for XM kernel module
+	  motor control.
+
+config BR2_PACKAGE_CAMHI_MOTOR
+	bool "CamHi motor"
+	depends on BR2_PACKAGE_MOTORS
+	help
+	  Select this option for CamHi kernel module
+	  motor control.
+
+config BR2_PACKAGE_INGENIC_MOTOR
+	bool "Ingenic motor"
+	depends on BR2_PACKAGE_MOTORS
+	default y if BR2_OPENIPC_SOC_VENDOR="ingenic"
+	help
+	  Select this option for Ingenic kernel module
+	  motor control.
